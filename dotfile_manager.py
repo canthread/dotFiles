@@ -30,11 +30,11 @@ class DotFileProgram:
 
 class DotFileManager:
 
-    DOTFILE_CONFIG_FILE = os.path.join(os.getcwd(), "config.txt")  # Points to config.txt in the current working directory
+    REPO_LOCATION = os.getcwd()  # Points to the current working directory for the repository
+    DOTFILE_CONFIG_FILE = REPO_LOCATION / "config.txt"
 
     def __init__(self):
         self.programs = []
-
 
     def load_config(self):
         """Loads the list of dotfile programs from config.txt."""
@@ -44,14 +44,31 @@ class DotFileManager:
         with open(self.DOTFILE_CONFIG_FILE, "r") as file:
             for line in file:
                 line = line.strip()
-
                 if line:  # Skip empty lines
-
                     name, path = line.split(maxsplit=1)  # Split into name and path
                     program = DotFileProgram(name, path)
                     self.programs.append(program)
 
-                    
+
+    def save_config(self):
+        """Saves the list of dotfile programs to config.txt."""
+        with open(self.DOTFILE_CONFIG_FILE, "w") as file:
+            for program in self.programs:
+                file.write(f"{program.name} {program.path}\n")
+
+    def remove_program(self, name):
+        """Removes a dotfile program from the manager."""
+        program = self.get_program(name)
+
+        if program is None:
+            raise KeyError(f"Program {name} not found.")
+
+        self.programs.remove(program)
+
+        # Update the config file
+        with open(self.DOTFILE_CONFIG_FILE, "w") as file:
+            for prog in self.programs:
+                file.write(f"{prog.name} {prog.path}\n")
 
     def add_program(self, name, path):
         """Adds a new dotfile program to the manager."""
@@ -60,12 +77,26 @@ class DotFileManager:
             raise ValueError(f"Program {name} already exists.")
 
         self.programs.append(DotFileProgram(name, path))
-        with open(self.CONFIG_FILE, "a") as file:
+        with open(self.DOTFILE_CONFIG_FILE, "a") as file:
             file.write(f"{name} {path}\n")
 
     def get_program(self, name):
-        """Checks if a dotfile program exists by its name."""
+        """Checks if a dotfile program exists by its name.
+        Returns the program if found, otherwise None."""
         return next((program for program in self.programs if program.name == name), None) 
+
+    def setup_programs(self):
+        """Sets up the dotfile programs by creating necessary directories."""
+        for program in self.programs:
+            if not os.path.exists(program.path):
+                # Create the directory for the program if it does not exist
+                os.makedirs(program.path, exist_ok=True)
+                print(f"Created directory for {program.name} at {program.path}")
+                path = self.REPO_LOCATION / program.name
+                shutil.copytree(path_to_repo_config, program.path, dirs_exist_ok=True)
+                print(f"Copied configuration for {program.name} to {program.path}")
+            else:
+                print(f"Directory for {program.name} already exists at {program.path}")
 
     def backup_program(self, name):
         """Backs up a dotfile program's configuration to the repository."""
@@ -84,8 +115,7 @@ class DotFileManager:
 
         # open the repository directory and remove all files and directories in it
         # copy all files and directoris from the programs path to the repository directory
-
-        path_to_repo_config = self.CONFIG_FILE / program.name
+        path_to_repo_config = self.REPO_LOCATION / program.name
 
         # Remove the existing directory in the repo, if it exists
         if os.path.exists(path_to_repo_config):
@@ -94,10 +124,7 @@ class DotFileManager:
         # Copy the program's config directory to the repo
         shutil.copytree(program.path, path_to_repo_config)
         
-        # Here you would implement the logic to backup the program's config
-        # For example, pushing files to a remote repository
         print(f"Backing up configuration for {program.name} at {program.path}...")
-
 
     def list_programs(self):
         """Lists all dotfile programs managed by the manager."""

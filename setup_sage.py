@@ -48,20 +48,14 @@ def main():
     if args.setup:
         program_name = args.setup
         print(f"Setting up configuration for {program_name}...")
-
-        # Here you would add the logic to setup the configuration for the program
-        # For example, copying files, creating symlinks, etc.
-        # This is a placeholder print statement
+        manager.setup_program(program_name)
         print(f"Configuration for {program_name} has been set up.")
 
     elif args.backup:
         program_name = args.backup
 
-        manager.
         print(f"Backing up configuration for {program_name}...")
-        # Here you would add the logic to backup the configuration for the program
-        # For example, pushing files to a remote repository
-        # This is a placeholder print statement
+        manager.setup_program(program_name)
         print(f"Configuration for {program_name} has been backed up.")
 
     elif args.add_new_program:
