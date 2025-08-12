@@ -24,6 +24,20 @@ use ('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
 
 use 'mbbill/undotree'
 
+use 'github/copilot.vim'
+
+use 'echasnovski/mini.map'
+require('mini.map').setup()
+
+
+-- tree 
+use {
+  'nvim-tree/nvim-tree.lua',
+  requires = {
+    'nvim-tree/nvim-web-devicons', -- optional
+  },
+}
+
 -- lsp zero config
 use {
 
