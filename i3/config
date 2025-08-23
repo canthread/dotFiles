@@ -209,3 +209,6 @@ bindsym Control+Mod1+l exec "i3lock -c 000000"
 # adjust brightness
 bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
+
+
+#default browser 
