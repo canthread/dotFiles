@@ -3,7 +3,6 @@ import hashlib
 import shutil
 
 
-
 class DotFileProgram:
 
     def __init__(self, name="", config_path="", backup_path=""):
@@ -71,6 +70,7 @@ class DotFileManager:
                 file.write(f"{prog.name} {prog.path}\n")
 
     def add_program(self, name, path):
+
         """Adds a new dotfile program to the manager."""
         found = any(program.name == name for program in self.programs)
         if found:

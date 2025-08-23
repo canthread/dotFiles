@@ -2,7 +2,6 @@ local lsp_zero = require('lsp-zero')
 
 lsp_zero.on_attach(function(client, bufnr)
   local opts = {buffer = bufnr, remap = false}
-
   vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
   vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
   vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
@@ -17,7 +16,7 @@ end)
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
-  ensure_installed = {'tsserver', 'rust_analyzer'},
+  ensure_installed = { 'rust_analyzer'},
   handlers = {
     lsp_zero.default_setup,
     lua_ls = function()
@@ -26,7 +25,6 @@ require('mason-lspconfig').setup({
     end,
   }
 })
-
 
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
@@ -40,12 +38,30 @@ cmp.setup({
     {name = 'buffer', keyword_length = 3},
   },
   formatting = lsp_zero.cmp_format(),
+  
+  -- Auto-trigger completion without interfering with dot
+  completion = {
+    autocomplete = { 
+      require('cmp.types').cmp.TriggerEvent.TextChanged,
+    },
+    completeopt = 'menu,menuone,noselect',
+  },
+  
   mapping = cmp.mapping.preset.insert({
     ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
     ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
     ['<Tab>'] = cmp.mapping.confirm({ select = true }),
     ['<C-Space>'] = cmp.mapping.complete(),
+    -- REMOVED the custom '.' mapping that was causing the issue
   }),
+  
+  experimental = {
+    ghost_text = true, -- Optional: shows preview
+  },
 })
 
-
+-- Better LSP capabilities
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+lsp_zero.set_server_config({
+  capabilities = capabilities,
+})
