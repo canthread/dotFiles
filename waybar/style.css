@@ -1,0 +1,64 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: monospace;
+    font-size: 13px;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+#window {
+    color: #ff0000;
+}
+#workspaces button {
+    padding: 0 5px;
+    color: #ffffff;
+    background-color: transparent;
+}
+
+#workspaces button.focused {
+    background-color: #4c566a;
+}
+
+#workspaces button.urgent {
+    background-color: #bf616a;
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#temperature,
+#disk,
+#backlight,
+#network,
+#pulseaudio,
+#idle_inhibitor,
+#tray,
+#mode,
+#window {
+    padding: 0 10px;
+}
+
+#battery.charging {
+    color: #a3be8c;
+}
+
+#battery.warning:not(.charging) {
+    color: #ebcb8b;
+}
+
+#battery.critical:not(.charging) {
+    color: #bf616a;
+}
+
+#temperature.critical {
+    color: #bf616a;
+}
+
+#idle_inhibitor.activated {
+    color: #a3be8c;
+}

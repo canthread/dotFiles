@@ -1,0 +1,88 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 30,
+    "spacing": 4,
+    
+    "modules-left": ["sway/workspaces", "sway/window" , "sway/mode"],
+    "modules-center": [],
+    "modules-right": ["idle_inhibitor", "pulseaudio", "network", "cpu", "memory", "disk", "battery", "clock", "tray"],
+    
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "format": "{name}"
+    },
+    
+    "sway/mode": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+    
+    "sway/window": {
+        "max-length": 50
+    },
+    
+    "clock": {
+        "format": "| {:%H:%M} |",
+        "format-alt": "| {:%Y-%m-%d} |"
+    },
+    
+    "cpu": {
+        "format": "CPU {usage}%",
+        "tooltip": false
+    },
+    
+    "memory": {
+        "format": "MEM {}%"
+    },
+    
+    "temperature": {
+        "critical-threshold": 80,
+        "format": "TEMP {temperatureC}C",
+        "format-critical": "HOT! {temperatureC}C"
+    },
+    
+    "disk": {
+        "interval": 30,
+        "format": "DISK {percentage_used}%",
+        "path": "/"
+    },
+    
+    "backlight": {
+        "format": "BRI {percent}%"
+    },
+    
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "BAT {capacity}%",
+        "format-charging": "CHG {capacity}%",
+        "format-plugged": "AC {capacity}%"
+    },
+"network": {
+    "format-wifi": "WIFI {essid} ↓{bandwidthDownBytes} ↑{bandwidthUpBytes}",
+    "format-ethernet": "ETH ↓{bandwidthDownBytes} ↑{bandwidthUpBytes}",
+    "format-disconnected": "NET Down",
+    "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+    "interval": 2
+},
+    
+    "pulseaudio": {
+        "format": "VOL {volume}%",
+        "format-muted": "VOL Mute"
+    },
+    
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "AWAKE",
+            "deactivated": "IDLE"
+        }
+    },
+    
+    "tray": {
+        "spacing": 10
+    }
+}

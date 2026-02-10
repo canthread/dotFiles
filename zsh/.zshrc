@@ -112,7 +112,15 @@ alias updg="sudo apt-get upgrade && sudo apt upgrade"
 #!/bin/sh
 #xrandr --output DP-0 --off --output DP-1 --off --output DP-2 --mode 2560x1440 --pos 2560x0 --rotate normal --output DP-3 --off --output HDMI-0 --off --output DP-4 --mode 2560x1440 --pos 0x0 --rotate normal --output DP-5 --off
 
+export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# handdle sleeping and suspend check /etc/systemd/logind.conf for suspend
+#exec swayidle -w before-sleep 'swaylock -f -c 000000'
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+
+# opencode
+export PATH=/home/toutou/.opencode/bin:$PATH
+
+# golang path
+export PATH=$PATH:/usr/local/go/bin
