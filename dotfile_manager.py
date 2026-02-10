@@ -55,6 +55,7 @@ class DotFileManager:
             for program in self.programs:
                 file.write(f"{program.name} {program.path}\n")
 
+
     def remove_program(self, name):
         """Removes a dotfile program from the manager."""
         program = self.get_program(name)
