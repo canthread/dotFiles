@@ -24,12 +24,15 @@ sudo apt install waybar
 sudo apt install bemenu
 sudo apt install ranger 
 sudo apt install openssh-server
+sudo apt install swaylock
 
 #nice apps to have to get started
 sudo apt install firefox-esr
 sudo apt install terminator
 sudo apt install curl
 sudo apt install zsh
+sudo apt install nmtui
+sudo apt install blueman
 
 #nginx install 
 sudo apt install nginx 
@@ -55,12 +58,12 @@ for file in /etc/nginx/sites-available/*; do
 done
 
 #setup git hub credentials 
-gh auth login
+#gh auth login
 
 # setup shell
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" #ohmyzsh
 rm ~/.zshrc 
-cp ./.zshrc ./
+cp ./zsh/.zshrc ./
 
 
 # install and setup neovim
