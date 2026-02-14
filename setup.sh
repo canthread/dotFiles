@@ -47,7 +47,7 @@ cp -r ./waybar ~/.config
 # nginx setup
 sudo rm -rf /etc/nginx/sites-available
 sudo cp -r ./nginx /etc/nginx/sites-available
-sudo systemctl relaod nginx
+sudo systemctl reload nginx
 sudo systemctl restart nginx
 
 for file in /etc/nginx/sites-available/*; do
@@ -61,6 +61,19 @@ gh auth login
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" #ohmyzsh
 rm ~/.zshrc 
 cp ./.zshrc ./
+
+
+# install and setup neovim
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
+sudo rm -rf /opt/nvim-linux-x86_64
+sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
+
+#export to path
+echo 'export PATH="$PATH:/opt/nvim-linux-x86_64/bin"' >> ~/.zshrc
+
+sudo rm -rf ~/.confg/nvim
+cp -r ./nvim ~/.config/
+
 
 
 
