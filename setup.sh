@@ -4,14 +4,11 @@
 
 #initial update and upgrade system before installing dependiencies
 sudo apt update
-sudo apt-get update
 sudo apt upgrade -y
-sudo apt-get upgrade -y
 
 
 #python
 sudo apt install -y python3-pip
-sudo apt install -y pip
 sudo apt install -y python3-venv
 
 #git and verison control
@@ -31,7 +28,7 @@ sudo apt install -y firefox-esr
 sudo apt install -y terminator
 sudo apt install -y curl
 sudo apt install -y zsh
-sudo apt install -y nmtui
+sudo apt install -y network-manager
 sudo apt install -y blueman
 
 #nginx install
@@ -41,7 +38,7 @@ sudo apt install -y certbot
 
 
 mkdir -p ~/.config/sway
-cp ./sway ~/.config/sway/
+cp -r ./sway/* ~/.config/sway/
 
 rm -rf ~/.config/waybar
 cp -r ./waybar ~/.config
@@ -54,7 +51,7 @@ sudo systemctl reload nginx
 sudo systemctl restart nginx
 
 for file in /etc/nginx/sites-available/*; do
-  ln -sf "$file" /etc/nginx/sites-enabled/$(basename "$file")
+  sudo ln -sf "$file" /etc/nginx/sites-enabled/$(basename "$file")
 done
 
 #setup git hub credentials
@@ -63,13 +60,14 @@ done
 # setup shell
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended #ohmyzsh
 rm ~/.zshrc
-cp ./zsh/.zshrc ./
+cp ./zsh/.zshrc ~/
 
 
 # install and setup neovim
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
 sudo rm -rf /opt/nvim-linux-x86_64
 sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
+rm nvim-linux-x86_64.tar.gz
 
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
  ~/.local/share/nvim/site/pack/packer/start/packer.nvim
@@ -77,5 +75,5 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim\
 #export to path
 echo 'export PATH="$PATH:/opt/nvim-linux-x86_64/bin"' >> ~/.zshrc
 
-sudo rm -rf ~/.confg/nvim
+sudo rm -rf ~/.config/nvim
 cp -r ./nvim ~/.config/
